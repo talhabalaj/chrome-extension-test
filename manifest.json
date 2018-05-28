@@ -1,7 +1,7 @@
 {
-    "name": "Getting Started Example",
+    "name": "Tenda-Wifi Web Interface Changer",
     "version": "1.0",
-    "description": "Build an Extension!",
+    "description": "Extension changes Web Interface of Tenda WiFi Routers.",
     "permissions": ["tabs", "*://*/*"],
     "background": {
       "scripts": ["background.js"],
