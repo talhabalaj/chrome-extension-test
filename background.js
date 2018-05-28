@@ -5,7 +5,6 @@
 'use strict';
 
 const color = "#35434d !important";
-const secondaryColor = "#2a2a2a !important";
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
