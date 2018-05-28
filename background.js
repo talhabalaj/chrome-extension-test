@@ -4,17 +4,42 @@
 
 'use strict';
 
-chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#3aa757'}, function() {
-    console.log("The color is green.");
-  });
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-    chrome.declarativeContent.onPageChanged.addRules([{
-      conditions: [new chrome.declarativeContent.PageStateMatcher({
-        pageUrl: {hostEquals: 'developer.chrome.com'},
-      })
-      ],
-          actions: [new chrome.declarativeContent.ShowPageAction()]
-    }]);
+
+
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+    if (changeInfo.status == 'complete') {
+      if (tab.url.indexOf("tendawifi.com") != -1) {
+        chrome.tabs.executeScript(tabId, {
+          code: `
+          function injectScript(){
+            // fix a security issue
+            const loginPassword = document.getElementById('login-password');
+            if (loginPassword) {
+              loginPassword.addEventListener('focus', () => {
+                loginPassword.setAttribute('type', 'password');
+              })
+            }
+            
+            // Style change 
+            const color = 'red';
+            document.querySelector('.masthead').style.backgroundColor = color;
+            document.querySelector('.active').style.color = color;
+            document.querySelector('.nav-lang').style.backgroundColor = color;
+            document.querySelectorAll('.nav>li>a:hover, .nav>li>a:focus').forEach(
+              (each) => {
+                each.style.color = color;
+              }
+            )
+
+            document.body.style.fontFamily = 'True lies';
+            
+
+          }
+          window.onload = injectScript();
+          `
+        });
+      }  
+    }
   });
 });
