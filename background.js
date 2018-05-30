@@ -4,9 +4,8 @@
 
 'use strict';
 
-const color = "#35434d !important";
+const color = "#0D909C !important";
 
-chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status == 'complete') {
       if (tab.url.indexOf("tendawifi.com") != -1) {
@@ -57,10 +56,14 @@ chrome.runtime.onInstalled.addListener(function () {
             background-color: ${color};
             border-color: ${color};
           }
-
+          .switch.icon-toggle-on {
+            color: ${color};
+          }
+          img[src="img/logo.png"]{
+            filter: invert(23%) sepia(21%) saturate(507%) hue-rotate(162deg) brightness(94%) contrast(90%);
+          }
           `
         }); 
       }
     }
   });
-});
